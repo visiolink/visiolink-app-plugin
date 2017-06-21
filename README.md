@@ -1,8 +1,16 @@
-# visiolink-app-plugin
-Gradle Plugin providing custom tasks for Android app development
+#### visiolink-app-plugin
+###Gradle Plugin providing custom tasks for Android app development
 
-Written in Kotlin :D
+_Written in Kotlin :D_
 
-Provides tasks for adding Git submodules, generating Git log since last commit, 
-printing all flavors as JSON, managing version name 
-and verifying everything is committed before release builds.
+Provides tasks for: 
+- Adding Git submodules
+- Generating Git log since last commit
+- Printing all flavors as JSON
+- Managing version name
+- Verifying everything is committed before release builds
+
+Build with:
+`./gradlew publishMavenJavaPublicationToMavenLocal`
+
+Then copy artifacts from `~/.m2/repository/` to your Maven repo.
