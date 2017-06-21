@@ -55,7 +55,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
 
                 variant.outputs.filterIsInstance(ApkVariantOutput::class.java).forEach {
                     val fileName = "${variant.name}_${variant.versionName.replace(".", "")}_${variant.versionCode}.apk"
-                    println("Setting APK file name to $fileName")
+                    //println("Setting APK file name to $fileName")
                     it.outputFileName = fileName
                 }
             }
