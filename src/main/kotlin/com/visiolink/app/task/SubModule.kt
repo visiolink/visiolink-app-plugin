@@ -15,20 +15,20 @@ fun addSubModule(repoModuleName: String, folderModuleName: String) {
     }
 
     //Add sub module
-    "git submodule add --force git@git.e-pages.dk:Device/Android/Modules/$repoModuleName.git $folderModuleName".execute().print()
+    "git submodule add --force git@git.e-pages.dk:Device/Android/Modules/$repoModuleName.git $folderModuleName".print().execute().print()
 
-    "git submodule update --init $folderModuleName".execute().print()
-    "git -C $folderModuleName pull".execute().print()
-    "git add $folderModuleName".execute().print()
+    "git submodule update --init $folderModuleName".print().execute().print()
+    "git -C $folderModuleName pull".print().execute().print()
+    "git add $folderModuleName".print().execute().print()
 
     //Add the module to settings.gradle
     val settingsGradleFile = File("settings.gradle")
     settingsGradleFile.appendText("\ninclude ':$folderModuleName'")
-    "git add settings.gradle".execute().print()
+    "git add settings.gradle".print().execute().print()
 
     //Add the module dependency to app/modules.gradle
     addDependency(folderModuleName)
-    "git add app/modules.gradle".execute().print()
+    "git add app/modules.gradle".print().execute().print()
 }
 
 /**
