@@ -1,6 +1,6 @@
-#### visiolink-app-plugin
+### visiolink-app-plugin
 
-###Gradle Plugin providing custom tasks for Android app development
+Gradle Plugin providing custom tasks for Android app development
 
 _Written in Kotlin :D_
 
