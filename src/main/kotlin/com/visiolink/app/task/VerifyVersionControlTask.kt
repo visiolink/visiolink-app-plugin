@@ -8,13 +8,15 @@ import com.visiolink.app.execute
 open class VerifyVersionControlTask: VisiolinkGroupTask() {
 
     init {
-        description = "Checks if all files are comitted before release builds"
+        description = "Checks if all files are committed before release builds"
     }
 
     @org.gradle.api.tasks.TaskAction
     fun action() {
+        if(project.hasProperty("ignoreChecks")) return
+
         val result = "git diff-files".execute()
-        if (result.trim().isNotEmpty() && !project.hasProperty("devBuild"))
+        if (result.trim().isNotEmpty())
             throw org.gradle.api.GradleException("Git not clean, commit changes before running release build")
     }
 }
