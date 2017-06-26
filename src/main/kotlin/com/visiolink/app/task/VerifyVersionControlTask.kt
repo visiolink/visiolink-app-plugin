@@ -13,8 +13,6 @@ open class VerifyVersionControlTask: VisiolinkGroupTask() {
 
     @org.gradle.api.tasks.TaskAction
     fun action() {
-        if(project.hasProperty("ignoreChecks")) return
-
         val result = "git diff-files".execute()
         if (result.trim().isNotEmpty())
             throw org.gradle.api.GradleException("Git not clean, commit changes before running release build")

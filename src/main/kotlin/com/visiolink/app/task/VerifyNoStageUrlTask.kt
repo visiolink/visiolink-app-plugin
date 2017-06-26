@@ -11,8 +11,6 @@ open class VerifyNoStageUrlTask : VisiolinkGroupTask() {
 
     @org.gradle.api.tasks.TaskAction
     fun action() {
-        if(project.hasProperty("ignoreChecks")) return
-
         project.projectDir
                 .walkTopDown()
                 .filter { it.isFile

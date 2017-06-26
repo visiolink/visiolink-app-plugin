@@ -30,13 +30,15 @@ open class VisiolinkAppPlugin : Plugin<Project> {
         project.tasks.create("addTnsNoModule", AddTnsGallupNoModuleTask::class.java)
 
         project.tasks.whenTaskAdded { task ->
-            if (task.name.startsWith("generate") && task.name.endsWith("ReleaseBuildConfig")) {
+            if (task.name.startsWith("generate")
+                    && task.name.endsWith("ReleaseBuildConfig")
+                    && !project.hasProperty("ignoreChecks")) {
                 //println("Task name: ${task.name}")
 
                 task.dependsOn("verifyVersionControl")
                 task.dependsOn("verifyNoStageUrl")
             }
-            if (task.name.startsWith("pre") && task.name.endsWith("ReleaseBuild")) {
+            if (task.name == "preWrapperReleaseBuild") {
                 //println("Task name: ${task.name}")
 
                 task.dependsOn("generateChangeLog")
