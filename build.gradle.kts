@@ -21,7 +21,7 @@ publishing {
         create("mavenJava", MavenPublication::class.java) {
             groupId = "com.visiolink"
             artifactId = "app"
-            version = "0.2"
+            version = "0.3"
 
             from(components.getByName("java"))
         }
