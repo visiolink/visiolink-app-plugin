@@ -6,8 +6,8 @@ plugins {
 
 dependencies {
     compileOnly(gradleApi())
-    implementation("com.android.tools.build:gradle:3.0.0-alpha4")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.1.2-5")
+    implementation("com.android.tools.build:gradle:3.0.0-alpha5")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.1.3")
     implementation("org.json:json:20160810")
 }
 
