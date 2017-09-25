@@ -28,6 +28,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
         project.tasks.create("addSpidModule", AddSpidModuleTask::class.java)
         project.tasks.create("addTnsDkModule", AddTnsGallupDkModuleTask::class.java)
         project.tasks.create("addTnsNoModule", AddTnsGallupNoModuleTask::class.java)
+        project.tasks.create("addComScoreModule", AddComScoreModuleTask::class.java)
 
         project.tasks.whenTaskAdded { task ->
             if (task.name.startsWith("generate")
