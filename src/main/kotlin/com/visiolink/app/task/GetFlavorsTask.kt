@@ -35,7 +35,7 @@ open class GetFlavorsTask: VisiolinkGroupTask() {
             val flavorJson = org.json.JSONObject()
             flavorJson.put("flavor", flavor)
             flavorJson.put("applicationId", variant.productFlavors[0].applicationId)
-            flavorJson.put("versionName", variant.productFlavors[0].versionName)
+            flavorJson.put("versionName", variant.productFlavors[0].versionName ?: variant.versionName)
 
             result.put(flavorJson)
         }
