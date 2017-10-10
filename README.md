@@ -12,6 +12,6 @@ Provides tasks for:
 - Verifying everything is committed before release builds
 
 Build with:
-`./gradlew publishMavenJavaPublicationToMavenLocal`
+`./gradlew publishAppPluginPublicationToMavenLocal`
 
 Then copy artifacts from `~/.m2/repository/` to your Maven repo.
