@@ -29,6 +29,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
         project.tasks.create("addTnsDkModule", AddTnsGallupDkModuleTask::class.java)
         project.tasks.create("addTnsNoModule", AddTnsGallupNoModuleTask::class.java)
         project.tasks.create("addComScoreModule", AddComScoreModuleTask::class.java)
+        project.tasks.create("tagProject", TagProjectTask::class.java)
 
         project.tasks.whenTaskAdded { task ->
             if (task.name.startsWith("generate")
@@ -36,6 +37,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
                     && !project.hasProperty("ignoreChecks")) {
                 //println("Task name: ${task.name}")
 
+                task.dependsOn("tagProject")
                 task.dependsOn("verifyVersionControl")
                 task.dependsOn("verifyNoStageUrl")
             }

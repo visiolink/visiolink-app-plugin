@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "1.1.51"
+    kotlin("jvm") version "1.1.60"
     `maven-publish`
     `java-gradle-plugin`
 }
@@ -7,7 +7,7 @@ plugins {
 dependencies {
     compileOnly(gradleApi())
     implementation("com.android.tools.build:gradle:3.0.0")
-    implementation(kotlin("stdlib", "1.1.51"))
+    implementation(kotlin("stdlib", "1.1.60"))
     implementation("org.json:json:20160810")
 }
 
@@ -21,7 +21,7 @@ publishing {
         create("appPlugin", MavenPublication::class.java) {
             groupId = "com.visiolink"
             artifactId = "app"
-            version = "0.6"
+            version = "0.7"
 
             from(components["java"])
         }
