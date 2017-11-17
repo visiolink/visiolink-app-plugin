@@ -14,7 +14,8 @@ open class VisiolinkAppPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.tasks.create("verifyVersionControl", VerifyVersionControlTask::class.java)
         project.tasks.create("verifyNoStageUrl", VerifyNoStageUrlTask::class.java)
-        project.tasks.create("generateChangeLog", GenerateChangeLogTask::class.java)
+        project.tasks.create("generateProjectChangeLog", GenerateProjectChangeLogTask::class.java)
+        project.tasks.create("generateGenericChangeLog", GenerateGenericChangeLogTask::class.java)
         project.tasks.create("increaseMajorVersionName", IncreaseMajorVersionNameTask::class.java)
         project.tasks.create("increaseMinorVersionName", IncreaseMinorVersionNameTask::class.java)
         project.tasks.create("increaseBuildVersionName", IncreaseBuildVersionNameTask::class.java)
@@ -38,13 +39,14 @@ open class VisiolinkAppPlugin : Plugin<Project> {
                 //println("Task name: ${task.name}")
 
                 task.dependsOn("tagProject")
+                task.dependsOn("generateProjectChangeLog")
                 task.dependsOn("verifyVersionControl")
                 task.dependsOn("verifyNoStageUrl")
             }
             if (task.name == "preWrapperReleaseBuild") {
                 //println("Task name: ${task.name}")
 
-                task.dependsOn("generateChangeLog")
+                task.dependsOn("generateGenericChangeLog")
             }
         }
 

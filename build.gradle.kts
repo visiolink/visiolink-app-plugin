@@ -21,7 +21,7 @@ publishing {
         create("appPlugin", MavenPublication::class.java) {
             groupId = "com.visiolink"
             artifactId = "app"
-            version = "0.7"
+            version = "0.8"
 
             from(components["java"])
         }

@@ -1,14 +1,13 @@
 package com.visiolink.app.task
 
 import com.visiolink.app.execute
-import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
 /**
  * Generates Generic change log since last tag
  */
-open class GenerateChangeLogTask: VisiolinkGroupTask() {
+open class GenerateGenericChangeLogTask : VisiolinkGroupTask() {
 
     init {
         description = "Generates Generic change log since last tag"
