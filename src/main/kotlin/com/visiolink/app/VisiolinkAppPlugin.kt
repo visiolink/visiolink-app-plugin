@@ -14,6 +14,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         project.tasks.create("verifyVersionControl", VerifyVersionControlTask::class.java)
         project.tasks.create("verifyNoStageUrl", VerifyNoStageUrlTask::class.java)
+        project.tasks.create("verifyBuildServer", VerifyBuildServerTask::class.java)
         project.tasks.create("generateProjectChangeLog", GenerateProjectChangeLogTask::class.java)
         project.tasks.create("generateGenericChangeLog", GenerateGenericChangeLogTask::class.java)
         project.tasks.create("increaseMajorVersionName", IncreaseMajorVersionNameTask::class.java)
@@ -40,6 +41,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
 
                 task.dependsOn("tagProject")
                 task.dependsOn("generateProjectChangeLog")
+                task.dependsOn("verifyBuildServer")
                 task.dependsOn("verifyVersionControl")
                 task.dependsOn("verifyNoStageUrl")
             }
