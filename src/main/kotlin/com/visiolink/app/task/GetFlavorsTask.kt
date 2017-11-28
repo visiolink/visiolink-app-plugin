@@ -1,9 +1,11 @@
 package com.visiolink.app.task
 
+import com.android.build.gradle.BasePlugin
+
 /**
  * Task to print flavor, appId and version as JSON
  */
-open class GetFlavorsTask: VisiolinkGroupTask() {
+open class GetFlavorsTask : VisiolinkGroupTask() {
 
     init {
         description = "Print flavors as JSON"
@@ -12,7 +14,7 @@ open class GetFlavorsTask: VisiolinkGroupTask() {
     @org.gradle.api.tasks.TaskAction
     fun action() {
 
-        getAndroidBasePlugin()
+        androidBasePlugin
                 ?: throw org.gradle.api.GradleException("You must apply the Android plugin or the Android library plugin before using the visiolink plugin")
 
         val result = org.json.JSONArray()
@@ -43,10 +45,7 @@ open class GetFlavorsTask: VisiolinkGroupTask() {
         println(result)
     }
 
-    fun getAndroidBasePlugin(): com.android.build.gradle.BasePlugin? {
-        val plugin = project.plugins.findPlugin("com.android.application") ?:
-                project.plugins.findPlugin("com.android.library")
-
-        return plugin as com.android.build.gradle.BasePlugin
-    }
+    private val androidBasePlugin: BasePlugin?
+        get() = (project.plugins.findPlugin("com.android.application") ?:
+                project.plugins.findPlugin("com.android.library")) as BasePlugin?
 }

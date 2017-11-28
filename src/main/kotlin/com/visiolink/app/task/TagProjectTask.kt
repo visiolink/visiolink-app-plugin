@@ -1,5 +1,6 @@
 package com.visiolink.app.task
 
+import com.android.build.gradle.BasePlugin
 import com.visiolink.app.execute
 
 /**
@@ -14,7 +15,7 @@ open class TagProjectTask : VisiolinkGroupTask() {
     @org.gradle.api.tasks.TaskAction
     fun action() {
 
-        getAndroidBasePlugin()
+        androidBasePlugin
                 ?: throw org.gradle.api.GradleException("You must apply the Android plugin or the Android library plugin before using the visiolink plugin")
 
         val android = project.extensions.getByName("android") as com.android.build.gradle.AppExtension
@@ -39,10 +40,7 @@ open class TagProjectTask : VisiolinkGroupTask() {
             throw org.gradle.api.GradleException("Error pushing tag: $pushResult")
     }
 
-    fun getAndroidBasePlugin(): com.android.build.gradle.BasePlugin? {
-        val plugin = project.plugins.findPlugin("com.android.application") ?:
-                project.plugins.findPlugin("com.android.library")
-
-        return plugin as com.android.build.gradle.BasePlugin
-    }
+    private val androidBasePlugin: BasePlugin?
+        get() = (project.plugins.findPlugin("com.android.application") ?:
+                project.plugins.findPlugin("com.android.library")) as BasePlugin?
 }
