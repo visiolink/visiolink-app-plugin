@@ -12,43 +12,45 @@ import java.util.*
 
 open class VisiolinkAppPlugin : Plugin<Project> {
     override fun apply(project: Project) {
-        project.tasks.create("verifyVersionControl", VerifyVersionControlTask::class.java)
-        project.tasks.create("verifyNoStageUrl", VerifyNoStageUrlTask::class.java)
-        project.tasks.create("verifyBuildServer", VerifyBuildServerTask::class.java)
-        project.tasks.create("generateProjectChangeLog", GenerateProjectChangeLogTask::class.java)
-        project.tasks.create("generateGenericChangeLog", GenerateGenericChangeLogTask::class.java)
-        project.tasks.create("increaseMajorVersionName", IncreaseMajorVersionNameTask::class.java)
-        project.tasks.create("increaseMinorVersionName", IncreaseMinorVersionNameTask::class.java)
-        project.tasks.create("increaseBuildVersionName", IncreaseBuildVersionNameTask::class.java)
-        project.tasks.create("getFlavors", GetFlavorsTask::class.java)
-        project.tasks.create("addAdtechModule", AddAdtechModuleTask::class.java)
-        project.tasks.create("addAndroidTvModule", AddAndroidTvModuleTask::class.java)
-        project.tasks.create("addCxenseModule", AddCxenseModuleTask::class.java)
-        project.tasks.create("addDfpModule", AddDfpModuleTask::class.java)
-        project.tasks.create("addInfosoftModule", AddInfosoftModuleTask::class.java)
-        project.tasks.create("addKindleModule", AddKindleModuleTask::class.java)
-        project.tasks.create("addSpidModule", AddSpidModuleTask::class.java)
-        project.tasks.create("addTnsDkModule", AddTnsGallupDkModuleTask::class.java)
-        project.tasks.create("addTnsNoModule", AddTnsGallupNoModuleTask::class.java)
-        project.tasks.create("addComScoreModule", AddComScoreModuleTask::class.java)
-        project.tasks.create("tagProject", TagProjectTask::class.java)
+        with(project.tasks) {
+            create("verifyVersionControl", VerifyVersionControlTask::class.java)
+            create("verifyNoStageUrl", VerifyNoStageUrlTask::class.java)
+            create("verifyBuildServer", VerifyBuildServerTask::class.java)
+            create("generateProjectChangeLog", GenerateProjectChangeLogTask::class.java)
+            create("generateGenericChangeLog", GenerateGenericChangeLogTask::class.java)
+            create("increaseMajorVersionName", IncreaseMajorVersionNameTask::class.java)
+            create("increaseMinorVersionName", IncreaseMinorVersionNameTask::class.java)
+            create("increaseBuildVersionName", IncreaseBuildVersionNameTask::class.java)
+            create("getFlavors", GetFlavorsTask::class.java)
+            create("addAdtechModule", AddAdtechModuleTask::class.java)
+            create("addAndroidTvModule", AddAndroidTvModuleTask::class.java)
+            create("addCxenseModule", AddCxenseModuleTask::class.java)
+            create("addDfpModule", AddDfpModuleTask::class.java)
+            create("addInfosoftModule", AddInfosoftModuleTask::class.java)
+            create("addKindleModule", AddKindleModuleTask::class.java)
+            create("addSpidModule", AddSpidModuleTask::class.java)
+            create("addTnsDkModule", AddTnsGallupDkModuleTask::class.java)
+            create("addTnsNoModule", AddTnsGallupNoModuleTask::class.java)
+            create("addComScoreModule", AddComScoreModuleTask::class.java)
+            create("tagProject", TagProjectTask::class.java)
 
-        project.tasks.whenTaskAdded { task ->
-            if (task.name.startsWith("generate")
-                    && task.name.endsWith("ReleaseBuildConfig")
-                    && !project.hasProperty("ignoreChecks")) {
-                //println("Task name: ${task.name}")
+            whenTaskAdded { task ->
+                if (task.name.startsWith("generate")
+                        && task.name.endsWith("ReleaseBuildConfig")
+                        && !project.hasProperty("ignoreChecks")) {
+                    //println("Task name: ${task.name}")
 
-                task.dependsOn("tagProject")
-                task.dependsOn("generateProjectChangeLog")
-                task.dependsOn("verifyBuildServer")
-                task.dependsOn("verifyVersionControl")
-                task.dependsOn("verifyNoStageUrl")
-            }
-            if (task.name == "preWrapperReleaseBuild") {
-                //println("Task name: ${task.name}")
+                    task.dependsOn("tagProject")
+                    task.dependsOn("generateProjectChangeLog")
+                    task.dependsOn("verifyBuildServer")
+                    task.dependsOn("verifyVersionControl")
+                    task.dependsOn("verifyNoStageUrl")
+                }
+                if (task.name == "preWrapperReleaseBuild") {
+                    //println("Task name: ${task.name}")
 
-                task.dependsOn("generateGenericChangeLog")
+                    task.dependsOn("generateGenericChangeLog")
+                }
             }
         }
 
@@ -80,7 +82,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
                 dateFormat("yyMMddHHmm").format(Date()).toInt()
             }
         })
-
+        
         //Equivalent to project.ext.getVersionNameFromFile = { -> }
         ext.set("getVersionNameFromFile", closure {
             val versionPropsFile = project.file("version.properties")
