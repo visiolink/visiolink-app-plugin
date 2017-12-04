@@ -21,9 +21,8 @@ internal fun String.execute(dir: File? = null): String {
     }
 }
 
-internal fun String.print(): String {
+internal fun String.print() = apply {
     println(this)
-    return this
 }
 
 fun dateFormat(pattern: String,
