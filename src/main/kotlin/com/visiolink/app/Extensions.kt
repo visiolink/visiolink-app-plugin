@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
-fun String.execute(dir: File? = null): String {
+internal fun String.execute(dir: File? = null): String {
     val cmdArgs = split(" ")
 
     val process = ProcessBuilder(cmdArgs)
@@ -21,7 +21,7 @@ fun String.execute(dir: File? = null): String {
     }
 }
 
-fun String.print(): String {
+internal fun String.print(): String {
     println(this)
     return this
 }
