@@ -21,14 +21,13 @@ internal fun String.execute(dir: File? = null): String {
     }
 }
 
-internal fun String.print() = apply {
-    println(this)
-}
+internal fun String.print() = apply { println(this) }
 
-fun dateFormat(pattern: String,
-               locale: Locale = Locale.getDefault(),
-               block: SimpleDateFormat.() -> Unit = {}): SimpleDateFormat
-        = SimpleDateFormat(pattern, locale).apply(block)
+fun dateFormat(
+        pattern: String,
+        locale: Locale = Locale.getDefault(),
+        block: SimpleDateFormat.() -> Unit = {}
+) = SimpleDateFormat(pattern, locale).apply(block)
 
 fun <T> closure(block: () -> T) = object : Closure<T>(null) {
     fun doCall(vararg args: Any?): T {
