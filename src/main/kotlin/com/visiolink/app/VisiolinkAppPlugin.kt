@@ -2,6 +2,7 @@ package com.visiolink.app
 
 import com.android.build.gradle.AppExtension
 import com.android.build.gradle.api.ApkVariantOutput
+import com.android.build.gradle.api.ApplicationVariant
 import com.visiolink.app.task.*
 import org.gradle.api.GradleException
 import org.gradle.api.Project
@@ -65,9 +66,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
                 }
 
                 variant.outputs.filterIsInstance(ApkVariantOutput::class.java).forEach {
-                    val fileName = "${variant.flavorName}_${variant.versionName.replace(".", "")}_${variant.versionCode}.apk"
-                    //println("Setting APK file name to $fileName")
-                    it.outputFileName = fileName
+                    it.outputFileName = with(variant) { "${flavorName}_${versionNameNoDots}_$versionCode.apk" }
                 }
             }
         }
@@ -82,7 +81,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
                 dateFormat("yyMMddHHmm").format(Date()).toInt()
             }
         })
-        
+
         //Equivalent to project.ext.getVersionNameFromFile = { -> }
         ext.set("getVersionNameFromFile", closure {
             val versionPropsFile = project.file("version.properties")
@@ -100,3 +99,6 @@ open class VisiolinkAppPlugin : Plugin<Project> {
         })
     }
 }
+
+val ApplicationVariant.versionNameNoDots
+    get() = versionName.replace(".", "")
