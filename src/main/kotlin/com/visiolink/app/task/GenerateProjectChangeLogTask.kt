@@ -22,6 +22,11 @@ open class GenerateProjectChangeLogTask : VisiolinkGroupTask() {
         val log = logCmd.execute(File("."))
         //println("Got log: $log")
 
+        val assetsFolder = project.file("src/main/assets")
+        if(!assetsFolder.exists()) {
+            assetsFolder.mkdirs()
+        }
+
         project.file("src/main/assets/git.log").writeText(log)
     }
 }
