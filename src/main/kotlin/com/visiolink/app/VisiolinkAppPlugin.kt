@@ -47,7 +47,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
                     task.dependsOn("verifyVersionControl")
                     task.dependsOn("verifyNoStageUrl")
                 }
-                if (task.name == "preWrapperReleaseBuild") {
+                if (task.name == "preDevReleaseBuild") {
                     //println("Task name: ${task.name}")
 
                     task.dependsOn("generateGenericChangeLog")
