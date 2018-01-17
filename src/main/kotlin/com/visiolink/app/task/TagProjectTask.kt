@@ -21,7 +21,7 @@ open class TagProjectTask : VisiolinkGroupTask() {
         val android = project.extensions.getByName("android") as com.android.build.gradle.AppExtension
 
         val versionCodes = android.applicationVariants
-                .filter { it.buildType.name != "release" }
+                .filter { it.buildType.name == "release" }
                 .map { it.productFlavors[0].versionCode }
                 .toSet()
 
@@ -29,7 +29,10 @@ open class TagProjectTask : VisiolinkGroupTask() {
             throw org.gradle.api.GradleException("Flavors must have the same version code. Please use getVersionCodeTimestamp()")
         }
 
-        val versionCode = versionCodes.first()
+        val versionCode = versionCodes.first() ?: android.defaultConfig.versionCode
+        if(versionCode == null) {
+            throw org.gradle.api.GradleException("Error tagging project - no versionCode in neither flavor nor defaultConfig")
+        }
 
         val tagResult = "git tag $versionCode".execute()
         if (tagResult.trim().isNotEmpty())
