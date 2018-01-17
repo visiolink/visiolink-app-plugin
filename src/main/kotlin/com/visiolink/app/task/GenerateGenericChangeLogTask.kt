@@ -21,6 +21,6 @@ open class GenerateGenericChangeLogTask : VisiolinkGroupTask() {
         val log = logCmd.execute(File("generic"))
         //println("Got log: $log")
 
-        project.file("src/wrapper/assets/git.log").writeText(log)
+        project.file("src/dev/assets/git.log").writeText(log)
     }
 }
