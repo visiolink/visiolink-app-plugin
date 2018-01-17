@@ -34,10 +34,20 @@ open class GetFlavorsTask : VisiolinkGroupTask() {
             val productFlavorName = productFlavorNames.joinToString()
             val flavor = productFlavorName[0].toLowerCase() + productFlavorName.substring(1)
 
+            val signingJson = org.json.JSONObject()
+            if(variant.signingConfig != null) {
+                signingJson.put("storeFile", variant.signingConfig.storeFile.absolutePath)
+                signingJson.put("storePassword", variant.signingConfig.storePassword)
+                signingJson.put("keyAlias", variant.signingConfig.keyAlias)
+                signingJson.put("keyPassword", variant.signingConfig.keyPassword)
+            }
+
             val flavorJson = org.json.JSONObject()
             flavorJson.put("flavor", flavor)
-            flavorJson.put("applicationId", variant.productFlavors[0].applicationId)
-            flavorJson.put("versionName", variant.productFlavors[0].versionName ?: variant.versionName)
+            flavorJson.put("applicationId", variant.applicationId)
+            flavorJson.put("versionName", variant.versionName)
+            flavorJson.put("versionCode", variant.versionCode)
+            flavorJson.put("signingConfig", signingJson)
 
             result.put(flavorJson)
         }
