@@ -46,7 +46,7 @@ open class GetFlavorsTask : VisiolinkGroupTask() {
             flavorJson.put("flavor", flavor)
             flavorJson.put("applicationId", variant.applicationId)
             flavorJson.put("versionName", variant.versionName)
-            flavorJson.put("versionCode", variant.versionCode)
+            flavorJson.put("versionCode", "${variant.versionCode}")
             flavorJson.put("signingConfig", signingJson)
 
             result.put(flavorJson)
