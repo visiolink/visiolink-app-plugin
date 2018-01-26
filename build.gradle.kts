@@ -8,7 +8,7 @@ dependencies {
     compileOnly(gradleApi())
     implementation("com.android.tools.build:gradle:3.0.1")
     implementation(kotlin("stdlib", "1.2.21"))
-    implementation("org.json:json:20160810")
+    implementation("org.json:json:20171018")
 }
 
 repositories {
