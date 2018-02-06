@@ -17,8 +17,7 @@ open class GenerateGenericChangeLogTask : VisiolinkGroupTask() {
     fun action() {
         val tag = "git describe --tags --abbrev=0".execute(File("generic")).trim()
 
-        val logCmd = "git log $tag..HEAD --oneline"
-        val log = logCmd.execute(File("generic"))
+        val log = "git log $tag..HEAD --oneline".execute(File("generic"))
         //println("Got log: $log")
 
         project.file("src/dev/assets/git.log").writeText(log)

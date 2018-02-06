@@ -1,7 +1,6 @@
 package com.visiolink.app.task
 
 import com.visiolink.app.execute
-import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
@@ -18,15 +17,10 @@ open class GenerateProjectChangeLogTask : VisiolinkGroupTask() {
     fun action() {
         val tag = "git describe --tags --abbrev=0".execute(File(".")).trim()
 
-        val logCmd = "git log $tag..HEAD --oneline"
-        val log = logCmd.execute(File("."))
+        val log = "git log $tag..HEAD --oneline".execute(File("."))
         //println("Got log: $log")
 
-        val assetsFolder = project.file("src/main/assets")
-        if(!assetsFolder.exists()) {
-            assetsFolder.mkdirs()
-        }
-
+        project.file("src/main/assets").mkdirs()
         project.file("src/main/assets/git.log").writeText(log)
     }
 }
