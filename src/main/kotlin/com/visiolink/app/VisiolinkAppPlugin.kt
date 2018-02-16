@@ -16,9 +16,11 @@ open class VisiolinkAppPlugin : Plugin<Project> {
         with(project.tasks) {
             val verifyVersionControl = create("verifyVersionControl", VerifyVersionControlTask::class.java)
             val verifyBuildServer = create("verifyBuildServer", VerifyBuildServerTask::class.java)
-            create("verifyNoStageUrl", VerifyNoStageUrlTask::class.java)
-            create("generateProjectChangeLog", GenerateProjectChangeLogTask::class.java).setMustRunAfter(listOf(verifyVersionControl, verifyBuildServer))
-            create("generateGenericChangeLog", GenerateGenericChangeLogTask::class.java).setMustRunAfter(listOf(verifyVersionControl, verifyBuildServer))
+            val verifyNoStageUrl = create("verifyNoStageUrl", VerifyNoStageUrlTask::class.java)
+            val verifiers = listOf(verifyVersionControl, verifyBuildServer, verifyNoStageUrl)
+
+            val generateProjectChangeLog = create("generateProjectChangeLog", GenerateProjectChangeLogTask::class.java).setMustRunAfter(verifiers)
+            create("generateGenericChangeLog", GenerateGenericChangeLogTask::class.java).setMustRunAfter(verifiers)
             create("increaseMajorVersionName", IncreaseMajorVersionNameTask::class.java)
             create("increaseMinorVersionName", IncreaseMinorVersionNameTask::class.java)
             create("increaseBuildVersionName", IncreaseBuildVersionNameTask::class.java)
@@ -33,7 +35,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
             create("addTnsDkModule", AddTnsGallupDkModuleTask::class.java)
             create("addTnsNoModule", AddTnsGallupNoModuleTask::class.java)
             create("addComScoreModule", AddComScoreModuleTask::class.java)
-            create("tagProject", TagProjectTask::class.java).setMustRunAfter(listOf(verifyVersionControl, verifyBuildServer))
+            create("tagProject", TagProjectTask::class.java).setMustRunAfter(verifiers + generateProjectChangeLog)
 
             whenTaskAdded { task ->
                 if (task.name.startsWith("generate")
