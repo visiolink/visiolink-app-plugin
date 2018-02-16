@@ -14,11 +14,11 @@ import java.util.*
 open class VisiolinkAppPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         with(project.tasks) {
-            create("verifyVersionControl", VerifyVersionControlTask::class.java)
+            val verifyVersionControl = create("verifyVersionControl", VerifyVersionControlTask::class.java)
+            val verifyBuildServer = create("verifyBuildServer", VerifyBuildServerTask::class.java)
             create("verifyNoStageUrl", VerifyNoStageUrlTask::class.java)
-            create("verifyBuildServer", VerifyBuildServerTask::class.java)
-            create("generateProjectChangeLog", GenerateProjectChangeLogTask::class.java)
-            create("generateGenericChangeLog", GenerateGenericChangeLogTask::class.java)
+            create("generateProjectChangeLog", GenerateProjectChangeLogTask::class.java).setMustRunAfter(listOf(verifyVersionControl, verifyBuildServer))
+            create("generateGenericChangeLog", GenerateGenericChangeLogTask::class.java).setMustRunAfter(listOf(verifyVersionControl, verifyBuildServer))
             create("increaseMajorVersionName", IncreaseMajorVersionNameTask::class.java)
             create("increaseMinorVersionName", IncreaseMinorVersionNameTask::class.java)
             create("increaseBuildVersionName", IncreaseBuildVersionNameTask::class.java)
@@ -33,7 +33,7 @@ open class VisiolinkAppPlugin : Plugin<Project> {
             create("addTnsDkModule", AddTnsGallupDkModuleTask::class.java)
             create("addTnsNoModule", AddTnsGallupNoModuleTask::class.java)
             create("addComScoreModule", AddComScoreModuleTask::class.java)
-            create("tagProject", TagProjectTask::class.java)
+            create("tagProject", TagProjectTask::class.java).setMustRunAfter(listOf(verifyVersionControl, verifyBuildServer))
 
             whenTaskAdded { task ->
                 if (task.name.startsWith("generate")
